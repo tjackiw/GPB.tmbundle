@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/bin/bash
+[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
+
+. "$TM_SUPPORT_PATH/lib/webpreview.sh"
+html_header "JSON Mapping" "proto3"
+Markdown.pl &lt;&lt;'EOF'
+
+&lt;title&gt;JSON Mapping (proto3)&lt;/title&gt;
+
+&lt;table width="100%" border="1"&gt;
+&lt;tbody&gt;&lt;tr&gt;&lt;th&gt;proto3&lt;/th&gt;&lt;th&gt;JSON&lt;/th&gt;&lt;th&gt;JSON example&lt;/th&gt;&lt;th&gt;Notes&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;message&lt;/td&gt;&lt;td&gt;object&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;{"fBar": v,&lt;wbr&gt;
+ "g": null,&lt;wbr&gt;
+ …}&lt;/span&gt;&lt;/code&gt;
+&lt;/td&gt;&lt;td&gt;Generates JSON objects. Message field names are mapped to lowerCamelCase and become JSON object keys. &lt;code&gt;&lt;span&gt;null&lt;/span&gt;&lt;/code&gt; is accepted and treated as the default value of the corresponding field type.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;enum&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;"FOO_BAR"&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;The name of the enum value as specified in proto is used.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;map&amp;lt;K,V&amp;gt;&lt;/td&gt;&lt;td&gt;object&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;{"k": v,&lt;wbr&gt; …}&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;All keys are converted to strings.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;repeated V&lt;/td&gt;&lt;td&gt;array&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;[v,&lt;wbr&gt; …]&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;null&lt;/span&gt;&lt;/code&gt; is accepted as the empty list [].&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;bool&lt;/td&gt;&lt;td&gt;true, false&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;true,&lt;wbr&gt; false&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;"Hello World!"&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;bytes&lt;/td&gt;&lt;td&gt;base64 string&lt;/td&gt;&lt;td&gt;&lt;!--need an example--&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;int32, fixed32, uint32&lt;/td&gt;&lt;td&gt;number&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;1,&lt;wbr&gt; -10,&lt;wbr&gt; 0&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;JSON value will be a decimal number. Either numbers or strings are accepted.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;int64, fixed64, uint64&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;"1",&lt;wbr&gt; "-10"&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;JSON value will be a decimal string. Either numbers or strings are accepted.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;float, double&lt;/td&gt;&lt;td&gt;number&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;1.&lt;wbr&gt;1,&lt;wbr&gt; -10.&lt;wbr&gt;0,&lt;wbr&gt; 0,&lt;wbr&gt; "NaN",&lt;wbr&gt; "Infinity"&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;JSON value will be a number or one of the special string values "NaN", "Infinity", and "-Infinity". Either numbers or strings are accepted. Exponent notation is also accepted. &lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Any&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;object&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;{"@type": "url",&lt;wbr&gt; "f": v,&lt;wbr&gt; … }&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;If the Any contains a value that has a special JSON mapping, it will be converted as follows: &lt;code&gt;&lt;span&gt;{"@type": xxx,&lt;wbr&gt; "value": yyy}&lt;/span&gt;&lt;/code&gt;. Otherwise, the value will be converted into a JSON object, and the &lt;code&gt;&lt;span&gt;"@type"&lt;/span&gt;&lt;/code&gt; field will be inserted to indicate the actual data type.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Timestamp&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;"1972-01-01T10:00:20.&lt;wbr&gt;021Z"&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Uses RFC 3339, where generated output will always be Z-normalized and uses 3, 6 or 9 fractional digits.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Duration&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;"1.&lt;wbr&gt;000340012s",&lt;wbr&gt; "1s"&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Generated output always contains 3, 6, or 9 fractional digits, depending on required precision. Accepted are any fractional digits (also none) as long as they fit into nano-seconds precision.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Struct&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;object&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;{ … }&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Any JSON object. See &lt;code&gt;&lt;span&gt;struct.&lt;wbr&gt;proto&lt;/span&gt;&lt;/code&gt;.&lt;/td&gt;&lt;/tr&gt;&lt;!--TODO: add link once we've figured out where we're putting doc for provided proto types--&gt;
+&lt;tr&gt;&lt;td&gt;Wrapper types&lt;/td&gt;&lt;td&gt;various types&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;2,&lt;wbr&gt; "2",&lt;wbr&gt; "foo",&lt;wbr&gt; true,&lt;wbr&gt; "true",&lt;wbr&gt; null,&lt;wbr&gt; 0,&lt;wbr&gt; …&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Wrappers use the same representation in JSON as the wrapped primitive type, except that &lt;code&gt;&lt;span&gt;null&lt;/span&gt;&lt;/code&gt; is allowed and preserved during data conversion and transfer.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;FieldMask&lt;/td&gt;&lt;td&gt;string&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;"f.&lt;wbr&gt;fooBar,&lt;wbr&gt;h"&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;See &lt;code&gt;&lt;span&gt;fieldmask.&lt;wbr&gt;proto&lt;/span&gt;&lt;/code&gt;.&lt;/td&gt;&lt;/tr&gt;&lt;!--TODO: add link once we've figured out where we're putting doc for provided proto types--&gt;
+&lt;tr&gt;&lt;td&gt;ListValue&lt;/td&gt;&lt;td&gt;array&lt;/td&gt;&lt;td&gt;&lt;code&gt;&lt;span&gt;[foo,&lt;wbr&gt; bar,&lt;wbr&gt; .&lt;wbr&gt;.&lt;wbr&gt;.&lt;wbr&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Value&lt;/td&gt;&lt;td&gt;value&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;Any JSON value&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;NullValue&lt;/td&gt;&lt;td&gt;null&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;JSON null&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+    
+EOF
+html_footer
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^h</string>
+	<key>name</key>
+	<string>JSON Mapping Cheat Sheet</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>uuid</key>
+	<string>60B8A00E-7341-4FE8-87BD-3B3779F3F85D</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>map&lt;${1:key_type}, ${2:value_type}&gt; ${3:map_field} = ${4:N};</string>
+	<key>name</key>
+	<string>map&lt;..., ...&gt; ... = ...</string>
+	<key>scope</key>
+	<string>source.protobuf</string>
+	<key>tabTrigger</key>
+	<string>map</string>
+	<key>uuid</key>
+	<string>9C757A71-594F-46D2-9A51-AE2D67B36E14</string>
+</dict>
+</plist>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>fghj@lkjhgjjhkiuygvb.pvs</string>
+	<key>contactName</key>
+	<string>Thiago Jackiw</string>
+	<key>description</key>
+	<string>Google Protocol Buffers</string>
+	<key>name</key>
+	<string>Google Protocol Buffers</string>
+	<key>source</key>
+	<dict>
+		<key>url</key>
+		<string>git@github.com:tjackiw/gpb-tmbundle.tmbundle</string>
+		<key>method</key>
+		<string>git</string>
+	</dict>
+	<key>uuid</key>
+	<string>360C4113-1023-48C4-909B-5CB57F4E1298</string>
+	<key>mainMenu</key>
+	<dict>
+		<key>submenus</key>
+		<dict>
+			<key>4523AC99-E7F5-49C8-AC72-6131242F2EF4</key>
+			<dict>
+				<key>name</key>
+				<string>Insert</string>
+				<key>items</key>
+				<array>
+					<string>FE73E00A-2790-471F-8FEF-43DB603589B2</string>
+					<string>25F279E7-CAC8-4498-ACA7-36C1F2458739</string>
+					<string>B0341631-FC60-46C4-BEE9-F674C06273C2</string>
+					<string>9C757A71-594F-46D2-9A51-AE2D67B36E14</string>
+					<string>7921C92E-B106-43A9-96CF-0528BFA8FD51</string>
+					<string>C1211DBF-D535-4C34-B16A-2BF079229FEE</string>
+					<string>B6717D98-6653-47AB-8BC5-56BEB0902D16</string>
+					<string>BBEFB63C-5ED0-4019-BF8E-E9B3669BAED8</string>
+					<string>536422CB-6606-427B-A6C3-61C0A6BBD2FD</string>
+					<string>7F01A959-3EEC-40AE-B4EF-65023F02D48D</string>
+					<string>7798F667-4C3C-43B7-AD4D-A209E0100312</string>
+				</array>
+			</dict>
+		</dict>
+		<key>items</key>
+		<array>
+			<string>3524E447-B4A9-4EBA-A2D0-FC3593755AC9</string>
+			<string>AD99D1DA-0A8C-47FF-AD80-681F3F4E5537</string>
+			<string>5D795123-5FBB-40CC-A068-93B5352F100F</string>
+			<string>B6FF17FE-9A75-4BDE-8B49-A11803C8F22E</string>
+			<string>------------------------------------</string>
+			<string>4523AC99-E7F5-49C8-AC72-6131242F2EF4</string>
+			<string>------------------------------------</string>
+			<string>7E5CF1B7-D3DD-4D8D-9E14-893A73A0CF3C</string>
+		</array>
+	</dict>
+</dict>
+</plist>
