@@ -176,7 +176,7 @@
 						</dict>
 					</dict>
 					<key>match</key>
-					<string>\b(rpc)\s+([A-Za-z0-9_]+)\s+\(([A-Za-z0-9_]+)\)\s*(returns)\s*\(([A-Za-z0-9_]+)\)\s*;</string>
+					<string>\b(rpc)\s+([A-Za-z0-9_]+)\s*\(([A-Za-z0-9_.]+)\)\s*(returns)\s*\(([A-Za-z0-9_.]+)\)\s*;</string>
 					<key>name</key>
 					<string>meta.individual-rpc-call.protobuf</string>
 				</dict>
@@ -423,7 +423,7 @@
 		<key>group_field</key>
 		<dict>
 			<key>begin</key>
-			<string>(required|optional|repeated)\s+(group)\s+([A-Za-z0-9_]+)\s*=\s*(\d+)\s*{</string>
+			<string>(?:(required|optional|repeated)\s+)?(group)\s+([A-Za-z0-9_]+)\s*=\s*(\d+)\s*{</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -493,19 +493,19 @@
 					<key>name</key>
 					<string>storage.type.built-in.protobuf</string>
 				</dict>
-				<key>6</key>
+				<key>3</key>
 				<dict>
 					<key>name</key>
 					<string>variable.other.primitive-field.protobuf</string>
 				</dict>
-				<key>7</key>
+				<key>4</key>
 				<dict>
 					<key>name</key>
 					<string>constant.numeric.field-tag.protobuf</string>
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>(required|optional|repeated)\s+(((s|u)?int|s?fixed)(32|64)|string|bytes|bool)\s+(\S+)\s*=\s*(\d+)</string>
+			<string>(?:(required|optional|repeated)\s+)?((?:(?:s|u)?int|s?fixed)(?:32|64)|double|float|string|bytes|bool)\s+(\S+)\s*=\s*(\d+)</string>
 		</dict>
 		<key>rpc_primitive_attribute</key>
 		<dict>
@@ -631,7 +631,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>(required|optional|repeated)\s+([A-Za-z.]*)\s+(\S+)\s*=\s*(\d+)</string>
+			<string>(?:(required|optional|repeated)\s+)?([A-Za-z.]*)\s+(\S+)\s*=\s*(\d+)</string>
 		</dict>
 	</dict>
 	<key>scopeName</key>
